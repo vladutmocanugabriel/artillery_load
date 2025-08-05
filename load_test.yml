@@ -1,0 +1,42 @@
+config:
+  target: "https://places.helperz.ro"
+  phases:
+    - duration: 120
+      arrivalRate: 200
+      name: "Test Phase"
+
+scenarios:
+  - name: "Search Otopeni"
+    flow:
+      - get:
+          url: "/search?q=Otopeni&format=json"
+
+  - name: "Use city param"
+    flow:
+      - get:
+          url: "/search?city=Vaslui&format=json"
+
+  - name: "User address detail"
+    flow:
+      - get:
+          url: "/search?q=otopeni&format=json&limit=1&addressdetails=1"
+
+  - name: "Use street param"
+    flow:
+      - get:
+          url: "/search?city=arad&street=ioan+budai+deleanu&addressdetails=1&layer=address&accept-language=ro"
+
+  - name: "Run them one after the other"
+    flow:
+      - get:
+          url: "/search?q=Otopeni&format=json"
+
+      - get:
+          url: "/search?city=arad&street=ioan+budai+deleanu&addressdetails=1&layer=address&accept-language=ro"
+
+      - get:
+          url: "/search?city=Vaslui&format=json"
+
+      - get:
+          url: "/search?q=otopeni&format=json&limit=1&addressdetails=1"
+      
